@@ -55,7 +55,7 @@ from tushare.stock.newsevent import (get_latest_news, latest_content,
 
 """
 for reference
-moneyflow_hsgt:沪深港通资金流向
+moneyflow_hsgt:Shanghai-Shenzhen-Hong Kong Stock Connect Fund Flow
 """
 from tushare.stock.reference import (profit_data, forecast_data,
                                      xsg_data, fund_holdings,

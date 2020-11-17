@@ -33,25 +33,25 @@ def get_hist_data(code=None, start=None, end=None,
                   ktype='D', retry_count=3,
                   pause=0.001):
     """
-        获取个股历史交易记录
+        Get historical transaction records of individual stocks
     Parameters
     ------
       code:string
-                  股票代码 e.g. 600848
+                  Stock code e.g. 600848
       start:string
-                  开始日期 format：YYYY-MM-DD 为空时取到API所提供的最早日期数据
+                  start date, format：YYYY-MM-DD Get the earliest date data provided by the API when it is empty
       end:string
-                  结束日期 format：YYYY-MM-DD 为空时取到最近一个交易日数据
+                  end date format：YYYY-MM-DD Get the latest trading day data when it is empty
       ktype：string
-                  数据类型，D=日k线 W=周 M=月 5=5分钟 15=15分钟 30=30分钟 60=60分钟，默认为D
-      retry_count : int, 默认 3
-                 如遇网络等问题重复执行的次数 
-      pause : int, 默认 0
-                重复请求数据过程中暂停的秒数，防止请求间隔时间太短出现的问题
+                  Data type, D=day bar W=week M=month 5=5 minutes 15=15 minutes 30=30 minutes 60=60 minutes, the default is D
+      retry_count : int, default 3
+                 The number of repeated executions in case of network problems
+      pause : int, default 0
+                The number of seconds to pause in the process of repeating request data to prevent the problem of too short request interval
     return
     -------
       DataFrame
-          属性:日期 ，开盘价， 最高价， 收盘价， 最低价， 成交量， 价格变动 ，涨跌幅，5日均价，10日均价，20日均价，5日均量，10日均量，20日均量，换手率
+          Attributes: date, opening price, highest price, closing price, lowest price, volume, price changes, changes, 5-day average price, 10-day average price, 20-day average price, 5-day average volume, 10-day average volume , 20-day average volume, turnover rate
     """
     symbol = ct._code_to_symbol(code)
     url = ''
@@ -102,13 +102,13 @@ def get_hist_data(code=None, start=None, end=None,
 
 def _parsing_dayprice_json(types=None, page=1):
     """
-           处理当日行情分页数据，格式为json
+           Process the paging data of the current market quotation, the format is json
      Parameters
      ------
-        pageNum:页码
+        pageNum:page number
      return
      -------
-        DataFrame 当日所有股票交易数据(DataFrame)
+        DataFrame All stock trading data of the day(DataFrame)
     """
     ct._write_console()
     request = Request(ct.SINA_DAY_PRICE_URL%(ct.P_TYPE['http'], ct.DOMAINS['vsf'],
@@ -768,20 +768,20 @@ def get_hists(symbols, start=None, end=None,
   
 def get_day_all(date=None):
     """
-    获取每日收盘行情
+    Get daily closing quotation
     Parameters:
     -------------
-    date:交易日期，格式:YYYY-MM-DD
+    date:Transaction date, format: YYYY-MM-DD
     
     Return:
     -------------
     DataFrame
-    code 代码, name 名称, p_change 涨幅%,
-    price 现价, change 涨跌, open 今开, high 最高,
-    low 最低, preprice 昨收, pe 市盈(动),
-    volratio 量比, turnover 换手%, range 振幅%%,
-    volume 总量, selling 内盘, buying 外盘,
-    amount 总金额, totals 总股本(万), industry 细分行业,
+    code, name, p_change increase%,
+    price, change up/down, open, high,
+    low, preprice, pe market earnings(moving),
+    volratio: volume ratio, turnover turnover%, range range%,
+    volume Total, selling 内盘, buying 外盘,
+    amount Total, totals 总股本(万), industry 细分行业,
     area 地区, floats 流通股本(万), fvalues 流通市值,
     abvalues AB股总市值, avgprice 均价, strength 强弱度%,
     activity 活跃度, avgturnover 笔换手, attack 攻击波%,
@@ -904,16 +904,16 @@ def bar(code, conn=None, start_date=None, end_date=None, freq='D', asset='E',
            factors = [],
            retry_count = 3):
     """
-    BAR数据
+    BAR data
     Parameters:
     ------------
-    code:证券代码，支持股票,ETF/LOF,期货/期权,港股
-    con:服务器连接 ，通过ts.api()或者ts.xpi()获得
-    start_date:开始日期  YYYY-MM-DD/YYYYMMDD
-    end_date:结束日期 YYYY-MM-DD/YYYYMMDD
-    freq:支持1/5/15/30/60分钟,周/月/季/年
-    asset:证券类型 E:股票和交易所基金，INDEX:沪深指数,X:期货/期权/港股/中概美国/中证指数/国际指数
-    market:市场代码，通过ts.get_markets()获取
+    code:Securities code, support stocks, ETF/LOF, futures/options, Hong Kong stocks
+    conn: server connection, obtained through ts.api() or ts.xpi()
+    start_date:  YYYY-MM-DD/YYYYMMDD
+    end_date: YYYY-MM-DD/YYYYMMDD
+    freq: Support 1/5/15/30/60 minutes, week/month/quarter/year
+    asset: securities type E: stocks and exchange funds, INDEX: Shanghai and Shenzhen indexes, X: futures/options/Hong Kong stocks/China U.S./China Securities Index/International Index
+    market:Market code, obtained through ts.get_markets()
     adj:复权类型,None不复权,qfq:前复权,hfq:后复权
     ma:均线,支持自定义均线频度，如：ma5/ma10/ma20/ma60/maN
     factors因子数据，目前支持以下两种：
@@ -1055,14 +1055,14 @@ def _get_mkcode(code='', asset='E', xapi=None):
 
 def tick(code, conn=None, date='', asset='E', market='', retry_count = 3):
     """
-    tick数据
+    tickdata
     Parameters:
     ------------
-    code:证券代码，支持股票,ETF/LOF,期货/期权,港股
-    conn:服务器连接 ，通过ts.api()或者ts.xpi()获得
-    date:日期
-    asset:证券品种，E:沪深交易所股票和基金, INDEX:沪深交易所指数， X:其他证券品种，大致如下：
-                     支持的扩展行情包括(asset='X')：
+    code:Securities code, support stocks, ETF/LOF, futures/options, Hong Kong stocks
+    conn:Server connection, obtained through ts.api() or ts.xpi()
+    date: date
+    asset:Securities varieties, E: Shanghai and Shenzhen Stock Exchange stocks and funds, INDEX: Shanghai and Shenzhen Stock Exchange indexes, X: other securities varieties, roughly as follows:
+                     Supported expansion quotes include (asset='X'):
                             郑州商品期权         OZ 大连商品期权         OD 上海商品期权         OS
                             上海个股期权         QQ 香港指数         FH 郑州商品         QZ 大连商品         QD 上海期货         QS
                             香港主板         KH 香港权证         KR 开放式基金         FU 货币型基金         FB
@@ -1070,18 +1070,18 @@ def tick(code, conn=None, date='', asset='E', market='', retry_count = 3):
                             美股知名公司         MG B股转H股         HB 股份转让         SB 股指期货         CZ 香港创业板         KG 香港信托基金         KT
                              国债预发行         GY 主力期货合约         MA
                               中证指数         ZZ 港股通         GH
-    market:市场代码，通过ts.get_markets()获取
+    market: market code, obtained through ts.get_markets()
                   
     Return
     ----------
     DataFrame
-    date:日期
-    time:时间
-    price:成交价
-    vol:成交量
-    type:买卖方向，0-买入 1-卖出 2-集合竞价成交
-            期货  0:开仓  1:多开   -1:空开
-         期货多一列数据oi_change:增仓数据
+    date:date
+    time:time
+    price:final price
+    vol:volume
+    type:Buying and selling direction, 0-Buy 1-Sell 2-Call auction transaction
+           Futures 0: open position 1: open long -1: open short
+         More data on futures oi_change: increase data增仓数据
 
     """
     code = code.strip().upper()
@@ -1141,14 +1141,14 @@ def tick(code, conn=None, date='', asset='E', market='', retry_count = 3):
 
 def quotes(symbols, conn=None, asset='E', market=[], retry_count = 3):
     """
-        获取实时快照
+        Get real-time snapshot
     Parameters
     ------
         symbols : string, array-like object (list, tuple, Series).
         
     return
     -------
-        DataFrame 实时快照，5档行情
+        DataFrame real-time snapshot, 5 quotations
     """
     for _ in range(retry_count):
         try:
@@ -1196,7 +1196,7 @@ def quotes(symbols, conn=None, asset='E', market=[], retry_count = 3):
 
 def get_security(api):
     """
-            获取股票列表
+            Get stock list
     """
     data = []
     for p in range(100):
@@ -1210,7 +1210,7 @@ def get_security(api):
 
 def reset_instrument(xapi=None):
     """
-            重新设置本地证券列表
+            Reset the local securities list
     """
     import tushare.util.conns as cs 
     xapi = cs.xapi_x() if xapi is None else xapi
@@ -1228,7 +1228,7 @@ def reset_instrument(xapi=None):
 
 def get_instrument(xapi=None):
     """
-            获取证券列表
+            Get a list of securities
     """
     import tushare.util.conns as cs 
     xapi = cs.xapi_x() if xapi is None else xapi
@@ -1247,7 +1247,7 @@ def get_instrument(xapi=None):
 
 def get_markets(xapi=None):
     """
-            获取市场代码
+            Get market code
     """
     if xapi is None:
         print(ct.MSG_NOT_CONNECTED)
