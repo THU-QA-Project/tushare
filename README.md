@@ -1,13 +1,12 @@
 TuShare
 
 
-Tushare Pro版已发布，请访问新的官网了解和查询数据接口！ [https://tushare.pro](https://tushare.pro)
+Tushare Pro version has been released, please visit the new official website to understand and query the data interface! [https://tushare.pro](https://tushare.pro)
 
-TuShare是实现对股票/期货等金融数据从**数据采集**、**清洗加工** 到 **数据存储**过程的工具，满足金融量化分析师和学习数据分析的人在数据获取方面的需求，它的特点是数据覆盖范围广，接口调用简单,响应快速。
+TuShare is a tool that realizes the process from **data collection**, **cleaning and processing** to **data storage** of financial data such as stocks/futures, and meets the needs of financial quantitative analysts and those who study data analysis in data acquisition. It is characterized by wide data coverage, simple interface call, and fast response.
 
 ![](http://tushare.org/_images/main_pic_min.png)
 
-欢迎关注扫描TuShare的微信公众号“挖地兔”，更多资源和信息与您分享。另外，由于tushare官网在重新设计和开发，最新接口的使用文档都会在挖地兔公众号发布，所以，请扫码关注，谢谢！
 
 ![](http://tushare.org/_images/ts.jpg)
 
@@ -30,9 +29,9 @@ python 2.x/3.x
 Installation
 ====
 
-- 方式1：pip install tushare
-- 方式2：python setup.py install
-- 方式3：访问[https://pypi.python.org/pypi/tushare/](https://pypi.python.org/pypi/tushare/)下载安装
+- Step 1：pip install tushare
+- Step 2：python setup.py install
+- Step 3: access [https://pypi.python.org/pypi/tushare/](https://pypi.python.org/pypi/tushare/) Download and install
 
 
 Upgrade
@@ -42,16 +41,16 @@ Upgrade
 
 Quick Start
 ======
-**Example 1.** 获取个股历史交易数据（包括均线数据）：
+**Example 1.** Get historical trading data of individual stocks (including moving average data):
 
     import tushare as ts
 
-	ts.get_hist_data('600848') #一次性获取全部数据
-	另外，参考get_k_data函数
+	ts.get_hist_data('600848') #Get all the data at once
+	In addition, refer to the get_k_data function
 
-结果显示：
+The results show:
 
-> 日期 ，开盘价， 最高价， 收盘价， 最低价， 成交量， 价格变动 ，涨跌幅，5日均价，10日均价，20日均价，5日均量，10日均量，20日均量，换手率
+> Date, Opening Price, Highest Price, Closing Price, Lowest Price, Volume, Price Change, Change, Average Price of 5 Days, Average Price of 10 Days, Average Price of 20 Days, Average Volume of 5 Days, Average Volume of 10 Days, 20 Average daily volume, turnover rate
 
     			 open    high   close     low     volume    p_change  ma5 \
 	date                                                                     
@@ -75,7 +74,7 @@ Quick Start
 	2012-01-19   6.841   6.841    7477.76    8487.71    8487.71     0.21  
 	2012-01-20   6.863   6.863    7518.00    8278.38    8278.38     0.23  
 
-设定历史数据的时间：      
+Set the time of historical data：      
 	
 	ts.get_hist_data('600848',start='2015-01-05',end='2015-01-09')
 
@@ -95,8 +94,8 @@ Quick Start
 	2015-01-09  11.682  58792.43  60665.93  107924.27     1.54  
 
 
-**复权历史数据**
-获取历史复权数据，分为前复权和后复权数据，接口提供股票上市以来所有历史数据，默认为前复权。如果不设定开始和结束日期，则返回近一年的复权数据，从性能上考虑，推荐设定开始日期和结束日期，而且最好不要超过一年以上，获取到数据后，请及时在本地存储。
+**Historical data**
+The interface provides all the historical data since the listing of the stock, and the default is the former one. If you don't set the start and end dates, you will return the recovery data of nearly one year. From the perspective of performance, it is recommended to set the start date and end date, and it is better not to exceed one year. After obtaining the data, please store it locally in time.
 
 	ts.get_h_data('002337') #前复权
 	ts.get_h_data('002337',autype='hfq') #后复权
@@ -104,15 +103,15 @@ Quick Start
 	ts.get_h_data('002337',start='2015-01-01',end='2015-03-16') #两个日期之间的前复权数据
 
 
-**Example 2.** 一次性获取最近一个日交易日所有股票的交易数据（结果显示速度取决于网速）
+**Example 2.** Get the transaction data of all stocks on the most recent trading day at one time (the result display speed depends on the internet speed)
 	
 
 	ts.get_today_all()
 
 
-结果显示：
+The results show:
 
-> 代码，名称，涨跌幅，现价，开盘价，最高价，最低价，最日收盘价，成交量，换手率
+> Code, name, price change, current price, opening price, highest price, lowest price, latest daily closing price, trading volume, turnover rate
 
 		  code    name     changepercent  trade   open   high    low  settlement \  
 	0     002738  中矿资源         10.023  19.32  19.32  19.32  19.32       17.56   
@@ -139,15 +138,15 @@ Quick Start
 	9     323469835        9.61735  
 	10     25768152       19.51090  
 
-**Example 3.** 获取历史分笔数据
+**Example 3.** Get historical data
 
     import tushare as ts
 
 	df = ts.get_tick_data('600848',date='2014-01-09')
 	df.head(10)
 
-结果显示：
->成交时间、成交价格、价格变动，成交手、成交金额(元)，买卖类型
+The results show:
+>Transaction time, transaction price, price changes, transaction hand, transaction amount (yuan), transaction type (卖盘 is sell order)
 
     Out[3]: 
      	 time  		price change  volume  amount  type
@@ -163,25 +162,25 @@ Quick Start
 	9    14:58:25   6.05  -0.01      20   12100   卖盘
 	10   14:58:05   6.06     --       5    3030   买盘
 
-**Example 4.** 获取实时交易数据(Realtime Quotes Data)
+**Example 4.** Realtime Quotes Data
 
     df = ts.get_realtime_quotes('000581') #Single stock symbol
 	df[['code','name','price','bid','ask','volume','amount','time']]
 
-结果显示：
->名称、开盘价、昨价、现价、最高、最低、买入价、卖出价、成交量、成交金额...more in docs
+The results show：
+>Name, opening price, yesterday price, current price, highest, lowest, buying price, selling price, trading volume, trading amount...more in docs
 
 
 	   code    name     price  bid    ask    volume   amount        time
 	0  000581  威孚高科  31.15  31.14  31.15  8183020  253494991.16  11:30:36 
 	  
-请求多个股票方法（一次最好不要超过30个）：
+Request multiple stock methods (preferably no more than 30 at a time):
     
 	ts.get_realtime_quotes(['600848','000980','000981']) #symbols from a list
 	ts.get_realtime_quotes(df['code'].tail(10)) #from a Series
 
 
-更多文档
+More documentation
 ========
 
 [https://tushare.pro](https://tushare.pro)
@@ -189,7 +188,229 @@ Quick Start
 [http://tushare.org/](http://tushare.org/ "TuShare Docs")
  
 
-Change Logs
+Change Logs (Original Chinese version below)
+-----------
+
+1.2.17 2018/11/24
+======
+
+-Pro version adds futures data
+-Pro version adds weekly/monthly data of A shares
+-The Pro version adds support for stocks/funds/futures/data currency quotations in the universal quotation pro_bar interface, and also supports the restoration of stock quotations
+
+1.2.15 2018/10/15
+====
+
+-Add the universal market pro_bar interface
+-Optimize the set_token function
+
+
+
+1.2.12 2018/08/10
+====
+
+-Release the first draft of the Pro version
+-Publish the Pro website, [https://tushare.pro](https://tushare.pro)
+
+1.0.5 2017/11/12
+======
+
+-Added convertible bond data
+-Add long connection closing function
+-Fix some bugs
+
+1.0.2 2017/10/29
+==========
+
+-Added bar interface to support more stable stocks, ETFs, futures options, Hong Kong stocks, China concept stocks and other varieties
+-Added tick interface to support transaction data of the above varieties
+-Added daily capital flow data for Shanghai-Shenzhen-Hong Kong Stock Connect
+-Fixed some bugs
+
+0.9.2 2017/09/13
+===========
+
+-Added data currency market data interface, which also supports Huobi, okcoin, and Chinese Bitcoin
+-Some bug fixes
+
+
+0.8.8 2017/08/29
+===========
+
+-Added dividend bonus data (including history)
+-Added get_day_all interface
+-Added BDI interface
+
+0.8.0 2017/06/05
+===========
+
+-Added 6 interfaces for futures market data, thanks to debugo for contributing code
+-Fix some bugs
+
+0.7.6 2017/05/16
+=============
+-Get\_today\_all interface data supplement
+-Fixed coding problem under forecast\_data mac
+
+0.7.0 2017/03/12
+=============
+-get\_today\_all interface speed up
+-Version cumulative update
+
+
+0.6.2 2016/12/03
+==========
+-Added the top ten shareholders and ten outstanding shares interface top10_holders
+-Added global real-time index list interface global_realtime
+-Fix some bugs
+
+0.6.1 2016/11/22
+===========
+-Fix get_k_databug
+-Fixed real trading login problem
+
+0.5.6 2016/11/06
+=============
+-Added a new market data interface get_k_data (please follow the tushare public account "Dig Rabbit" and check the historical article "New Free Market Data Interface")
+-Fix program and documentation bugs
+
+
+0.5.1 2016/10/16
+=============
+-Added real trading interface
+-Fix bug
+
+
+0.4.9 2016/03/26
+=============
+-Added Shenwan industry classification get_industry_classified(standard='sw')
+-Added trade_cal() trading calendar
+-Fix bug
+
+0.4.3 2015/12/24
+============
+-Added movie box office data
+-Fix some bugs
+
+0.4.1 2015/11/27
+==============
+
+-Added sina big order data
+-Modify the day-dividing bug
+-Shenzhen Margin Trading Data Repair
+
+0.3.9 2015/10/13
+============
+
+-Added option implied volatility data
+-Fix the index component and weight interface problem
+
+0.3.8 2015/09/19
+============
+
+-CSI 300 component stock and weight interface problem fixed
+-Other bug fixes
+
+
+
+0.3.5 2015/07/27
+==========
+
+-Partial code correction
+
+
+0.3.4 2015/06/15
+===========
+
+-Added "Dragon and Tiger List" module
+1. Daily List of Dragons and Tigers
+1. Statistics of individual stocks on the list
+1. Statistics of sales department on the list
+1. Tracking the seat of the Longhuban Institution
+1. The transaction details of institutional seats
+
+-Modify the data type of get\_h\_data to float
+-Modify the open column missing from the get_index interface
+-Merge bug fixes submitted on GitHub
+
+
+0.2.8 2015/04/28
+============
+
+-Newly increased real-time market index list
+-Newly increased historical market data of the index (all)
+-Added a list of terminated companies (delisting)
+-Added a list of suspended companies
+-Fixed the defect that the margin and securities lending details have no date
+-Fixed some bugs in get\_h\_data
+
+0.2.6
+========
+-Added a list of margin trading and securities lending in Shanghai Stock Exchange
+-Added a detailed list of margin trading and securities lending in Shanghai Stock Exchange
+-Added a list of margin trading and securities lending in Shenzhen Stock Exchange
+-Added a detailed list of margin trading and securities lending in Shenzhen Stock Exchange
+-Fixed an abnormal problem caused by null in the data source of re-weighting data (affecting about 300 stocks)
+
+0.2.5 2015/04/16
+===========
+-Complete compatibility support for python2.x and python3.x
+-Partial algorithm optimization and code reconstruction
+-Added CSI 500 constituent stocks
+-Add transaction details of the day
+-Fix the bug of distribution plan (high delivery and forwarding)
+
+0.2.3 2015/04/11
+===========
+-New "Sina Stock Bar" news and popularity
+-Added IPO data
+-Fixed the problem of data duplication in the "Fundamental" module
+-Fixed the bug that the historical data lacks a column (data source problem)
+
+0.2.0 2015/03/17
+=======
+
+ -Added historical restoration data interface
+ -Added real-time scrolling news and information mine data
+ -Added CSI 300 index into shares and dynamic weights,
+ -Newly added SSE 50 Index constituent stocks
+ -Modify the historical market data type to float
+
+0.1.9 2015/02/06
+========
+-Add classification data
+-Add data storage example
+
+0.1.6 2015/01/27
+========
+-Added historical and real-time market quotations of key indexes
+-Update docs
+
+0.1.5 2015/01/26
+=====
+
+-Add fundamental data interface
+-Release the first version of the manual and open the [TuShare docs](http://tushare.waditu.com) website
+
+0.1.3 2015/01/13
+===
+-Increase the acquisition of real-time transaction data
+-Done for crawling Realtime Quotes data
+
+0.1.1 2015/01/11
+===
+
+-Increase the acquisition of tick data
+
+0.1.0 2014/12/01
+===
+
+-Create the first version
+-Realize the acquisition of historical data of individual stocks
+
+
+
+Change Logs 
 -----------
 
 1.2.17 2018/11/24
